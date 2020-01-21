@@ -10,19 +10,24 @@ namespace Vostok.Configuration.Sources.Xml
     public static class XmlConfigurationParser
     {
         public static ISettingsNode Parse(string content)
+            => ParseXml(content, null);
+
+        public static ISettingsNode Parse(string content, string rootName)
+            => ParseXml(content, rootName);
+
+        private static ISettingsNode ParseXml(string content, string rootName)
         {
             if (string.IsNullOrWhiteSpace(content))
                 return null;
 
             var doc = new XmlDocument();
-
             doc.LoadXml(content);
 
-            var root = doc.DocumentElement;
+            var root = doc?.DocumentElement;
             if (root == null)
                 return null;
 
-            return ParseElement(doc, root.Name, root);
+            return ParseElement(doc, rootName ?? root.Name, root);
         }
 
         private static ISettingsNode ParseElement(XmlDocument doc, string name, XmlElement element)
@@ -46,7 +51,6 @@ namespace Vostok.Configuration.Sources.Xml
             if (!childNodes.OfType<XmlElement>().Any())
                 return new ValueNode(name, element.InnerText);
 
-
             var children =
                 childNodes
                     .Cast<XmlElement>()
@@ -56,9 +60,9 @@ namespace Vostok.Configuration.Sources.Xml
                             elements.Count() == 1
                                 ? ParseElement(doc, elements.Key, elements.First())
                                 : new ArrayNode(elements.Key, elements.Select((node, index) => ParseElement(doc, index.ToString(), node)).ToList())
-                )
-                .ToList();
-            
+                    )
+                    .ToList();
+
             return new ObjectNode(name, children);
         }
     }
