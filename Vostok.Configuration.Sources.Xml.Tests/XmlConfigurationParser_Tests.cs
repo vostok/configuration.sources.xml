@@ -36,7 +36,7 @@ namespace Vostok.Configuration.Sources.Xml.Tests
     <Key1>value1</Key1>
     <Key2>value2</Key2>
 </Dictionary>";
-            
+
             var settings = XmlConfigurationParser.Parse(value);
 
             settings.Name.Should().Be("Dictionary");
@@ -52,7 +52,7 @@ namespace Vostok.Configuration.Sources.Xml.Tests
     <Array>value1</Array>
     <Array>value2</Array>
 </ArrayParent>";
-            
+
             var settings = XmlConfigurationParser.Parse(value);
 
             settings.Name.Should().Be("ArrayParent");
@@ -79,7 +79,7 @@ namespace Vostok.Configuration.Sources.Xml.Tests
             settings["item"].Children.First()["subitem1"].Value.Should().Be("value1");
             settings["item"].Children.Last()["subitem2"].Value.Should().Be("value2");
         }
-        
+
         [Test]
         public void Should_parse_ArrayOfArrays_value()
         {
@@ -115,7 +115,7 @@ namespace Vostok.Configuration.Sources.Xml.Tests
     <ArrayItem>ArrayValue1</ArrayItem>
     <ArrayItem>ArrayValue2</ArrayItem>
 </Mixed>";
-            
+
             var settings = XmlConfigurationParser.Parse(value);
 
             settings.Name.Should().Be("Mixed");
@@ -123,7 +123,7 @@ namespace Vostok.Configuration.Sources.Xml.Tests
             settings["DictItem"]["DictKey"].Value.Should().Be("DictValue");
             settings["ArrayItem"].Children.Select(child => child.Value).Should().Equal("ArrayValue1", "ArrayValue2");
         }
-        
+
         [Test]
         public void Should_parse_Object_from_attributes()
         {
@@ -149,7 +149,7 @@ namespace Vostok.Configuration.Sources.Xml.Tests
             settings["item"].Children.Select(child => child.Value).Should().Equal("value1", "value2");
             settings["attr"].Value.Should().Be("test");
         }
-        
+
         [Test]
         public void Should_ignore_key_case()
         {
@@ -163,6 +163,16 @@ namespace Vostok.Configuration.Sources.Xml.Tests
          {
              const string value = "wrong file format";
              new Action(() => { XmlConfigurationParser.Parse(value); }).Should().Throw<XmlException>();
+         }
+
+         [Test]
+         public void Should_parse_XmlDocument_with_overriden_root_name()
+         {
+             var settings = XmlConfigurationParser.Parse("<object key1='val1' key2='val2' />", "overriden");
+
+             settings.Name.Should().Be("overriden");
+             settings["key1"].Value.Should().Be("val1");
+             settings["key2"].Value.Should().Be("val2");
          }
     }
 }
