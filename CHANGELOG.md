@@ -1,3 +1,7 @@
+## 0.1.2 (06-12-2021):
+
+Added `net6.0` target.
+
 ## 0.1.1 (22-01-2020): 
 
 XmlConfigurationParser: added an overload of Parse method with root element name parameter.
