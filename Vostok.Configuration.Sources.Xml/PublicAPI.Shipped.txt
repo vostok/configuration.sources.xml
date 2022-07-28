@@ -1,0 +1,9 @@
+static Vostok.Configuration.Sources.Xml.XmlConfigurationParser.Parse(string content) -> Vostok.Configuration.Abstractions.SettingsTree.ISettingsNode
+static Vostok.Configuration.Sources.Xml.XmlConfigurationParser.Parse(string content, string rootName) -> Vostok.Configuration.Abstractions.SettingsTree.ISettingsNode
+Vostok.Configuration.Sources.Xml.XmlConfigurationParser
+Vostok.Configuration.Sources.Xml.XmlFileSource
+Vostok.Configuration.Sources.Xml.XmlFileSource.XmlFileSource(string filePath) -> void
+Vostok.Configuration.Sources.Xml.XmlFileSource.XmlFileSource(Vostok.Configuration.Sources.File.FileSourceSettings settings) -> void
+Vostok.Configuration.Sources.Xml.XmlStringSource
+Vostok.Configuration.Sources.Xml.XmlStringSource.XmlStringSource() -> void
+Vostok.Configuration.Sources.Xml.XmlStringSource.XmlStringSource(string xml) -> void
