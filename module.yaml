@@ -9,6 +9,25 @@ notests *default:
     - Vostok.Configuration.Sources.Xml/bin/Release/netstandard2.0/Vostok.Configuration.Sources.Xml.dll
     - module vostok.configuration.abstractions
     - module vostok.configuration.sources
+    - groups:
+        - target-framework: "netstandard2.0"
+          libraries:
+            - Vostok.Configuration.Sources.Xml/bin/Release/netstandard2.0/Vostok.Configuration.Sources.Xml.dll
+          modules:
+            - name: vostok.configuration.abstractions
+            - name: vostok.configuration.sources
+        - target-framework: "net6.0"
+          libraries:
+            - Vostok.Configuration.Sources.Xml/bin/Release/net6.0/Vostok.Configuration.Sources.Xml.dll
+          modules:
+            - name: vostok.configuration.abstractions
+            - name: vostok.configuration.sources
+        - target-framework: "net8.0"
+          libraries:
+            - Vostok.Configuration.Sources.Xml/bin/Release/net8.0/Vostok.Configuration.Sources.Xml.dll
+          modules:
+            - name: vostok.configuration.abstractions
+            - name: vostok.configuration.sources
 
   deps:
     - vostok.devtools
@@ -20,7 +39,33 @@ full-build > notests:
     - -vostok.devtools
     - vostok.devtools@with-net6.0
     - vostok.commons.testing/src
-    
+
+  install:
+    - Vostok.Configuration.Sources.Xml/bin/Release/netstandard2.0/Vostok.Configuration.Sources.Xml.dll
+    - module vostok.configuration.abstractions
+    - module vostok.configuration.sources
+    - groups:
+        - target-framework: "netstandard2.0"
+          libraries:
+            - Vostok.Configuration.Sources.Xml/bin/Release/netstandard2.0/Vostok.Configuration.Sources.Xml.dll
+          modules:
+            - name: vostok.configuration.abstractions
+            - name: vostok.configuration.sources
+        - target-framework: "net6.0"
+          libraries:
+            - Vostok.Configuration.Sources.Xml/bin/Release/net6.0/Vostok.Configuration.Sources.Xml.dll
+          modules:
+            - name: vostok.configuration.abstractions
+            - name: vostok.configuration.sources
+        - target-framework: "net8.0"
+          libraries:
+            - Vostok.Configuration.Sources.Xml/bin/Release/net8.0/Vostok.Configuration.Sources.Xml.dll
+          modules:
+            - name: vostok.configuration.abstractions
+            - name: vostok.configuration.sources
+
   build:
     target: Vostok.Configuration.Sources.Xml.sln
     configuration: Release
+    tool:
+      name: dotnet
